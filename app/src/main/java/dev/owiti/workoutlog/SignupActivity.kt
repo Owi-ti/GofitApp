@@ -72,6 +72,9 @@ class SignupActivity : AppCompatActivity() {
         if (confirm.isBlank()) {
             tilConfirmPassword.error = "confirmpassword_required"
         }
+        if (pass!= confirm) {
+            tilPassword.error="password do not match"
+        }
     }
 }
 

@@ -14,4 +14,9 @@
     <string name="enter_your_firstname">Enter your firstname</string>
     <string name="enter_password">Enter your password</string>
     <string name="confirmpassword">ConfirmPassword</string>
+    <string name="plan">Plan</string>
+    <string name="track">Track</string>
+    <string name="profile">Profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
