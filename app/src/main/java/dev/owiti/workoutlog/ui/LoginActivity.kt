@@ -1,12 +1,8 @@
-package dev.owiti.workoutlog
+package dev.owiti.workoutlog.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import com.google.android.material.textfield.TextInputLayout
 import dev.owiti.workoutlog.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -21,12 +17,12 @@ class LoginActivity : AppCompatActivity() {
             val intent=Intent(this, HomeActivity::class.java)
             startActivity(intent)
             validateLogin()
-           startActivity(Intent(this,HomeActivity::class.java))
+           startActivity(Intent(this, HomeActivity::class.java))
            finish()
         }
 
         binding.tvSignup.setOnClickListener {
-            val intent=Intent(this,SignupActivity::class.java)
+            val intent=Intent(this, SignupActivity::class.java)
             startActivity(intent)
         }
     }

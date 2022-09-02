@@ -1,12 +1,9 @@
-package dev.owiti.workoutlog
+package dev.owiti.workoutlog.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.FragmentContainer
-import androidx.fragment.app.FragmentContainerView
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import dev.owiti.workoutlog.R
 import dev.owiti.workoutlog.databinding.ActivityHomeBinding
-import dev.owiti.workoutlog.databinding.ActivityLoginBinding
 
 class HomeActivity : AppCompatActivity() {
     lateinit var binding: ActivityHomeBinding

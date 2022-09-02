@@ -1,10 +1,11 @@
-package dev.owiti.workoutlog
+package dev.owiti.workoutlog.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import dev.owiti.workoutlog.R
 
 
 class TrackFragment : Fragment() {
