@@ -75,19 +75,19 @@ class SignupActivity : AppCompatActivity() {
         if(!error){
             val  registerRequest=RegisterRequest(name, name2, mail, phone, pass)
 //            makeRegistrationRequest(registerRequest)
-            userViewModel.signupUser(registerRequest)
+            userViewModel.registerUser(registerRequest)
         }
     }
 
     override fun onResume() {
         super.onResume()
-        userViewModel.signupResponseLiveData.observe(this, Observer {
+        userViewModel.registerResponseLiveData.observe(this, Observer {
             signupResponse->
             Toast.makeText(baseContext,signupResponse.message,Toast.LENGTH_LONG).show()
             startActivity(Intent(baseContext, LoginActivity::class.java))
         })
 
-        userViewModel.signupErrorLiveData.observe(this, Observer {
+        userViewModel.registerErrorLiveData.observe(this, Observer {
             signupError->
             Toast.makeText(baseContext,signupError,Toast.LENGTH_LONG).show()
         })

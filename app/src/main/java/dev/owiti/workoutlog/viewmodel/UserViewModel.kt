@@ -14,8 +14,8 @@ class UserViewModel:ViewModel() {
     val userRepository= UserRepository()
     var loginResponseLiveData=MutableLiveData<LoginResponse>()
     val loginErrorLiveData= MutableLiveData<String?>()
-    val signupResponseLiveData= MutableLiveData<RegisterResponse>()
-    val signupErrorLiveData =MutableLiveData<String?>()
+    val registerResponseLiveData= MutableLiveData<RegisterResponse>()
+    val registerErrorLiveData =MutableLiveData<String?>()
 
     fun loginUser(loginRequest: LoginRequest){
         viewModelScope.launch {
@@ -30,11 +30,11 @@ class UserViewModel:ViewModel() {
         }
     }
 
-    fun signupUser(registerRequest:RegisterRequest){
+    fun registerUser(registerRequest:RegisterRequest){
         viewModelScope.launch {
-            val response= userRepository.signupUser(registerRequest)
+            val response= userRepository.registerUser(registerRequest)
             if (response.isSuccessful){
-                signupResponseLiveData.postValue(response.body())
+                registerResponseLiveData.postValue(response.body())
             }
 //            else{
 //                val error=response.errorBody()?.string()
