@@ -4,11 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import dev.owiti.workoutlog.databinding.ActivitySignupBinding
 import dev.owiti.workoutlog.models.RegisterRequest
 import dev.owiti.workoutlog.models.RegisterResponse
-import dev.owiti.workoutlog.retrofit.ApiClient
-import dev.owiti.workoutlog.retrofit.ApiInterface
+import dev.owiti.workoutlog.api.ApiClient
+import dev.owiti.workoutlog.api.ApiInterface
+import dev.owiti.workoutlog.viewmodel.UserViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -16,6 +19,7 @@ import retrofit2.Response
 
 class SignupActivity : AppCompatActivity() {
     lateinit var binding: ActivitySignupBinding
+    val userViewModel: UserViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivitySignupBinding.inflate(layoutInflater)
@@ -29,8 +33,6 @@ class SignupActivity : AppCompatActivity() {
             val intent= Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
-
-
     }
 
     fun validateSign() {
@@ -40,8 +42,6 @@ class SignupActivity : AppCompatActivity() {
         var mail = binding.etmail.text.toString()
         var pass = binding.etpassword.text.toString()
         var confirm = binding.etConfirmPassword.text.toString()
-
-
 
         var error= false
         if (name.isBlank()) {
@@ -70,38 +70,27 @@ class SignupActivity : AppCompatActivity() {
         }
         if (pass!= confirm) {
             error =true
-            binding.tilPassword.error="password do not match"
+            binding.tilPassword.error= "password do not match"
         }
         if(!error){
             val  registerRequest=RegisterRequest(name, name2, mail, phone, pass)
-
-            makeRegistrationRequest(registerRequest)
+//            makeRegistrationRequest(registerRequest)
+            userViewModel.signupUser(registerRequest)
         }
     }
-     fun makeRegistrationRequest(registerRequest: RegisterRequest){
-          var apiClient=ApiClient.buildApiClient(ApiInterface::class.java)
-         var  request= apiClient.registerUser(registerRequest)
 
-         request.enqueue(object :Callback<RegisterResponse> {
-             override fun onResponse(
-                 call: Call<RegisterResponse>,
-                 response: Response<RegisterResponse>
-             ) {
-                 if (response.isSuccessful){
-                     var message = response.body()?.message
-                     Toast.makeText(baseContext,message,Toast.LENGTH_LONG).show()
-                     //intent to login
-                 }else{
-                     val error = response.errorBody()?.string()
-                     Toast.makeText(baseContext,error,Toast.LENGTH_LONG).show()
-                 }
-             }
+    override fun onResume() {
+        super.onResume()
+        userViewModel.signupResponseLiveData.observe(this, Observer {
+            signupResponse->
+            Toast.makeText(baseContext,signupResponse.message,Toast.LENGTH_LONG).show()
+            startActivity(Intent(baseContext, LoginActivity::class.java))
+        })
 
-             override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-                 Toast.makeText(baseContext,t.message,Toast.LENGTH_LONG).show()
-             }
-         })
-
-     }
+        userViewModel.signupErrorLiveData.observe(this, Observer {
+            signupError->
+            Toast.makeText(baseContext,signupError,Toast.LENGTH_LONG).show()
+        })
+    }
 }
 

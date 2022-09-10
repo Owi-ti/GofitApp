@@ -1,5 +1,7 @@
 package dev.owiti.workoutlog.ui
 
+import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import dev.owiti.workoutlog.R
@@ -7,10 +9,18 @@ import dev.owiti.workoutlog.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {
     lateinit var binding: ActivityHomeBinding
+    lateinit var sharedPref : SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.tvLogout.setOnClickListener {
+            val intent=Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+            Logoutrequest()
+        }
+
        casViews()
         setupBottomNav()
     }
@@ -39,5 +49,11 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    fun Logoutrequest () {
+        sharedPref.edit().clear().commit()
+//        startActivity(Intent(this, LoginActivity::class.java))
+//        finish()
     }
 }
