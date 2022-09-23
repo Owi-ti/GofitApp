@@ -10,6 +10,10 @@ import dev.owiti.workoutlog.models.RegisterResponse
 import dev.owiti.workoutlog.repository.UserRepository
 import kotlinx.coroutines.launch
 
+
+
+
+
 class UserViewModel:ViewModel() {
     val userRepository= UserRepository()
     var loginResponseLiveData=MutableLiveData<LoginResponse>()
@@ -36,11 +40,13 @@ class UserViewModel:ViewModel() {
             if (response.isSuccessful){
                 registerResponseLiveData.postValue(response.body())
             }
-//            else{
-//                val error=response.errorBody()?.string()
-//                signupErrorLiveData.postValue(error)
-//            }
+           else{
+               val error=response.errorBody()?.string()
+              registerErrorLiveData.postValue(error)
+           }
         }
     }
 
 }
+
+

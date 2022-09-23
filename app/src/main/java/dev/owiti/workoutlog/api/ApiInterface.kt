@@ -1,12 +1,11 @@
 package dev.owiti.workoutlog.api
 
-import dev.owiti.workoutlog.models.LoginRequest
-import dev.owiti.workoutlog.models.LoginResponse
-import dev.owiti.workoutlog.models.RegisterRequest
-import dev.owiti.workoutlog.models.RegisterResponse
+import dev.owiti.workoutlog.models.*
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface ApiInterface {
@@ -15,4 +14,8 @@ interface ApiInterface {
 
     @POST("/Login")
     suspend fun login (@Body LoginRequest: LoginRequest): Response<LoginResponse>
+
+
+    @GET("/exercise-categories")
+    suspend fun fetchExerciseCategories(@Header("Authorization") accessToken: String): Response<List<ExerciseCategory>>
 }

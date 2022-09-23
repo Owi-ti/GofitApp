@@ -13,6 +13,7 @@ import dev.owiti.workoutlog.models.LoginRequest
 import dev.owiti.workoutlog.models.LoginResponse
 import dev.owiti.workoutlog.api.ApiClient
 import dev.owiti.workoutlog.api.ApiInterface
+import dev.owiti.workoutlog.utilities.Constants
 import dev.owiti.workoutlog.viewmodel.UserViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -83,9 +84,10 @@ class LoginActivity : AppCompatActivity() {
 
     fun saveLoginDetails(LoginResponse:LoginResponse){
        val editor= sharedPrefs.edit()
-        editor.putString("ACCESS_TOKEN", LoginResponse.accessToken)
-        editor.putString("USER_ID",LoginResponse.userId)
-        editor.putString("PROFILE_ID",LoginResponse.profileId)
+        val token ="Bearer ${LoginResponse.accessToken}"
+        editor.putString( Constants.accessToken,LoginResponse.accessToken)
+        editor.putString(Constants.userId,LoginResponse.userId)
+        editor.putString(Constants.profileId,LoginResponse.profileId)
         editor.apply()
     }
 }
